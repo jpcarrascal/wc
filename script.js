@@ -3,6 +3,7 @@ const textInput = document.getElementById('text-input');
 const wordCount = document.getElementById('word-count');
 const characterCount = document.getElementById('character-count');
 const charNoSpacesCount = document.getElementById('char-no-spaces-count');
+const lineCount = document.getElementById('line-count');
 
 // Function to count words and characters
 function countWordsAndChars(text) {
@@ -15,20 +16,24 @@ function countWordsAndChars(text) {
     // Count characters excluding spaces
     const charsNoSpaces = text.replace(/\s+/g, '').length;
     
+    // Count lines (1 + number of line breaks)
+    const lines = text === '' ? 0 : text.split('\n').length;
+    
     // Count words by splitting on whitespace
     const words = trimmedText === '' ? 0 : trimmedText.split(/\s+/).length;
     
-    return { words, chars, charsNoSpaces };
+    return { words, chars, charsNoSpaces, lines };
 }
 
 // Function to update the counters
 function updateCounters() {
     const text = textInput.value;
-    const { words, chars, charsNoSpaces } = countWordsAndChars(text);
+    const { words, chars, charsNoSpaces, lines } = countWordsAndChars(text);
     
     wordCount.textContent = words;
     characterCount.textContent = chars;
     charNoSpacesCount.textContent = charsNoSpaces;
+    lineCount.textContent = lines;
     
     // Save to local storage
     localStorage.setItem('savedText', text);

@@ -76,3 +76,21 @@ textarea:focus {
     font-size: 12px;
     text-align: center;
 }
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+}
+
+footer a {
+    color: #4b8bf4;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: #3a70ca;
+    text-decoration: underline;
+}
