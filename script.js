@@ -49,6 +49,19 @@ function loadSavedText() {
     }
 }
 
+// Download textarea content as a file on Ctrl+S or Cmd+S
+function downloadTextFile(filename, text) {
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
 // Event listeners
 textInput.addEventListener('keyup', updateCounters);
 
@@ -56,6 +69,15 @@ textInput.addEventListener('keyup', updateCounters);
 textInput.addEventListener('paste', () => {
     // Use setTimeout to ensure the paste content is available
     setTimeout(updateCounters, 0);
+});
+
+document.addEventListener('keydown', function(e) {
+    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    if ((isMac && e.metaKey && e.key === 's') || (!isMac && e.ctrlKey && e.key === 's')) {
+        e.preventDefault();
+        const text = textInput.value;
+        downloadTextFile('word-counter.txt', text);
+    }
 });
 
 // Initialize when the page loads
